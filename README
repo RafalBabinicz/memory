@@ -1,0 +1,19 @@
+# memory
+
+A simple game of memory for in a web browser.
+
+## Usage
+
+Build it using:
+
+  lein cljsbuild once
+
+and point your browser to:
+
+  public/index.html
+
+## License
+
+Copyright (C) 2012 Remco van 't Veer
+
+Distributed under the Eclipse Public License, the same as Clojure.

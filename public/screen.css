@@ -1,0 +1,31 @@
+html {
+    font-family: sans-serif;
+}
+div.card {
+    display: block;
+    float: left;
+    width: 130px;
+    height: 130px;
+    margin: 5px;
+    background: #ddd;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    border: solid black 2px;
+    overflow: hidden;
+    text-align: center;
+}
+div.card.open {
+    background: #f8f8f8;
+}
+div.card.cleared {
+    background: none;
+    border-color: transparent;
+}
+div.card div.face {
+    display: inline;
+    font-size: 110px;
+    font-weight: bold;
+}
+h1.finished {
+    font-size: 100px;
+}
