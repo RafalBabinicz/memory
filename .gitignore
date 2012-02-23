@@ -8,3 +8,4 @@
 /.lein-deps-sum
 /public/js/memory*
 /.lein-plugins/checksum
+.repl

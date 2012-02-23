@@ -1,7 +1,8 @@
 (ns memory.core
   (:require [goog.dom :as gdom]
             [goog.dom.classes :as gclasses]
-            [goog.events :as gevents]))
+            [goog.events :as gevents]
+            [clojure.browser.repl :as repl]))
 
 (defn shuffle
   "Fisher–Yates shuffle"
@@ -101,3 +102,6 @@
 
 (populate-cards!)
 (render-cards!)
+
+(when (re-find #"\?debug" (. window/location -href))
+  (repl/connect "http://localhost:9000/repl"))
