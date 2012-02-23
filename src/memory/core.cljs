@@ -13,7 +13,7 @@
           (vec coll)
           (range (count coll))))
 
-(def *number-of-cards* 8)
+(def *number-of-cards* 10)
 (def *number-of-group* 2)
 
 (def cards (atom []))
@@ -100,7 +100,30 @@
       (let [elm (create-card-element! pos)]
         (gdom/append board elm)))))
 
+(defn- floor
+  "Wrap js/Math.floor function."
+  [val] (.floor js/Math val))
+
+(defn insert-style!
+  "Insert window size specific style."
+  []
+  (let [border 6
+        margin (floor (max (/ window/innerWidth 200)
+                           (/ window/innerHeight 200)))
+        size (- (first (filter (fn [size]
+                                 (< (floor (/ (* 2 *number-of-cards*)
+                                              (floor (/ window/innerWidth size))))
+                                    (floor (/ window/innerHeight size))))
+                               (range 500 10 -10)))
+                (* 2 margin)
+                border)
+        style (gdom/createElement "style")]
+    (gdom/append style (str "div.card{margin:" margin "px;width:" size "px;height:" size "px}"
+                            "div.card div.face{font-size:" (floor (* size 0.8)) "px}"))
+    (gdom/append document/body style)))
+
 (populate-cards!)
+(insert-style!)
 (render-cards!)
 
 (when (re-find #"\?debug" (. window/location -href))

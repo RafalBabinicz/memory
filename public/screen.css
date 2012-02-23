@@ -1,15 +1,15 @@
 html {
     font-family: sans-serif;
 }
+body {
+    margin: 0
+}
 div.card {
     display: block;
     float: left;
-    width: 130px;
-    height: 130px;
-    margin: 5px;
     background: #ddd;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
     border: solid black 2px;
     overflow: hidden;
     text-align: center;
@@ -23,9 +23,5 @@ div.card.cleared {
 }
 div.card div.face {
     display: inline;
-    font-size: 110px;
     font-weight: bold;
-}
-h1.finished {
-    font-size: 100px;
 }
