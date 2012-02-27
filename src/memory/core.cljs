@@ -74,7 +74,7 @@
   "Handle card click for a given pos."
   [pos]
   (when @worker
-    (js/clearTimeout @worker)
+    (.clearTimeout js/window @worker)
     (process-selection!))
   (when (and (@cards pos)
              (not (@current-selection pos))
@@ -82,7 +82,7 @@
     (swap! current-selection conj pos)
     (show-card! pos)
     (when (= (count @current-selection) *number-of-group*)
-      (reset! worker (js/setTimeout process-selection! 1000)))))
+      (reset! worker (.setTimeout js/window process-selection! 1000)))))
 
 (defn create-card-element!
   "Create dom element for a card and bind click listener."
