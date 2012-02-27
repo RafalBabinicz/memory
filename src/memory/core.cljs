@@ -2,6 +2,7 @@
   (:require [goog.dom :as gdom]
             [goog.dom.classes :as gclasses]
             [goog.events :as gevents]
+            [goog.style :as gstyle]
             [clojure.browser.repl :as repl]))
 
 (defn shuffle
@@ -45,10 +46,9 @@
   "Render game over message."
   []
   (doto (gdom/getElement "board")
-    (gdom/removeChildren)
-    (gdom/append (doto (gdom/createElement "h1")
-                   (gclasses/add "finished")
-                   (gdom/append "GAME OVER")))))
+    (gstyle/showElement false)
+    gdom/removeChildren)
+  (gstyle/showElement (gdom/getElement "cover") true))
 
 (def worker (atom nil))
 
@@ -98,7 +98,8 @@
     (gdom/removeChildren board)
     (dotimes [pos (count @cards)]
       (let [elm (create-card-element! pos)]
-        (gdom/append board elm)))))
+        (gdom/append board elm)))
+    (gstyle/showElement board true)))
 
 (defn- floor
   "Wrap js/Math.floor function."
@@ -119,12 +120,19 @@
                 border)
         style (gdom/createElement "style")]
     (gdom/append style (str "div.card{margin:" margin "px;width:" size "px;height:" size "px}"
-                            "div.card div.face{font-size:" (floor (* size 0.8)) "px}"))
+                            "div#cover,div.card div.face{font-size:" (floor (* size 0.8)) "px}"))
     (gdom/append document/body style)))
 
-(populate-cards!)
+(defn start-new-game!
+  "Start a new game of memory."
+  []
+  (gstyle/showElement (gdom/getElement "cover") false)
+  (populate-cards!)
+  (render-cards!))
+
 (insert-style!)
-(render-cards!)
+(gstyle/showElement (gdom/getElement "cover") true)
+(gevents/listen (gdom/getElement "play-link") "click" start-new-game!)
 
 (when (re-find #"\?debug" (. window/location -href))
   (repl/connect "http://localhost:9000/repl"))

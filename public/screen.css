@@ -25,3 +25,11 @@ div.card div.face {
     display: inline;
     font-weight: bold;
 }
+div#cover {
+    text-align: center;
+    margin: .5em;
+}
+div#cover a {
+    text-decoration: none;
+    font-weight: bold;
+}
